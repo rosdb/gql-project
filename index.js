@@ -1,31 +1,59 @@
-import { ApolloServer, gql } from 'apollo-server';
+const { ApolloServer, gql } = require('apollo-server');
 
 const typeDefs = gql`
 
-  type Book {
+  type Game {
     title: String
-    author: String
+    year: String
   }
 
   type Query {
-    books: [Book]
+    games: [Game]
   }
 `;
 
-const books = [
+const games = [
   {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling',
+    title: 'The Witcher 3: Wild Hunt',
+    year: '2015',
   },
   {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
+    title: 'Grim Fandango Remastered',
+    year: '2015',
   },
+  {
+    title: 'Everybody’s Gone to the Rapture',
+    year: '2015',
+  },
+  {
+    title: 'Uncharted 4: A Thief’s End',
+    year: '2016',
+  },
+  {
+    title: 'Firewatch',
+    year: '2016',
+  },
+  {
+    title: 'Ratchet & Clank (2016)',
+    year: '2016',
+  },
+  {
+    title: 'Unravel',
+    year: '2016',
+  },
+  {
+    title: 'Horizon Zero Dawn',
+    year: '2017',
+  },
+  {
+    title: 'What Remains of Edith Finch',
+    year: '2017',
+  }
 ];
 
 const resolvers = {
   Query: {
-    books: () => books,
+    games: () => games,
   },
 };
 
