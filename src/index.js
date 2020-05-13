@@ -3,12 +3,14 @@ const typeDefs = require("./schema");
 const resolvers = require('./resolvers');
 const GameAPI = require("./datasources/games");
 
+const dataSources = () => ({
+  gameAPI: new GameAPI()
+});
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  dataSources: () => ({
-    gameAPI: new GameAPI()
-  }),
+  dataSources
 });
 
 server.listen().then(({ url }) => {

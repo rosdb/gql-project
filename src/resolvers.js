@@ -1,7 +1,8 @@
 module.exports = {
   Query: {
-    games: (_, __, { dataSources }) => {
-      dataSources.gameAPI.getAllGames();
+    games: async (_, __, { dataSources }) => {
+      const allGames = await dataSources.gameAPI.getGames();
+      return allGames;
     },
   },
 };

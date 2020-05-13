@@ -4,22 +4,19 @@ const { RESTDataSource } = require('apollo-datasource-rest');
 class GameAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://api.rawg.io/api/games';
+    this.baseURL = 'https://api.rawg.io/api/';
 	}
 
 	gameReducer(game) {
 		return {
 			title: game.name,
-			year: game.released
+			year: game.released.slice(0,4)
 		};
 	}
 	
-	async getAllGames() {
+	async getGames() {
 		const response = await this.get('games');
-		console.log(response);
-		return Array.isArray(response)
-			? response.map(game => this.gameReducer(game))
-			: [];
+		return response.results.map(game => this.gameReducer(game));
 	}
 }
 
