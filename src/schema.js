@@ -3,12 +3,22 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
 
   type Game {
-    title: String
-    year: String
+    id: Int,
+    title: String,
+    details: Details
+  }
+
+  type Details {
+    title: String,
+    description: String,
+    rating: Int,
+    website: String,
+    image: String
   }
 
   type Query {
-    games: [Game]
+    games: [Game],
+    gameById(id: Int): Details
   }
 `;
 

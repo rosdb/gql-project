@@ -5,5 +5,9 @@ module.exports = {
       const allGames = await Promise.all(pages.map(page => dataSources.gameAPI.getGames(page)));
       return allGames.flat();
     },
+    gameById: async (_, { id }, { dataSources }) => {
+      const gameDetails = await dataSources.gameAPI.getDetails(id)
+      return gameDetails;
+    }
   },
 };
