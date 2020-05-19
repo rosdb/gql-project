@@ -14,8 +14,8 @@ class GameAPI extends RESTDataSource {
 		};
 	}
 	
-	async getGames() {
-		const response = await this.get('games');
+	async getGames(page) {
+		const response = await this.get(`games?page=${page}`);
 		return response.results.map(game => this.gameReducer(game));
 	}
 }

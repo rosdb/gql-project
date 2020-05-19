@@ -1,8 +1,9 @@
 module.exports = {
   Query: {
     games: async (_, __, { dataSources }) => {
-      const allGames = await dataSources.gameAPI.getGames();
-      return allGames;
+      const pages = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+      const allGames = await Promise.all(pages.map(page => dataSources.gameAPI.getGames(page)));
+      return allGames.flat();
     },
   },
 };
