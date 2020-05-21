@@ -3,7 +3,7 @@ const { gql } = require('apollo-server');
 const typeDefs = gql`
 
   type Game {
-    id: Int,
+    id: ID,
     title: String,
     details: Details
   }
@@ -11,7 +11,7 @@ const typeDefs = gql`
   type Details {
     title: String,
     description: String,
-    rating: Int,
+    rating: Float,
     website: String,
     image: String
   }
