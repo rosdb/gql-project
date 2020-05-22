@@ -26,7 +26,7 @@ function App() {
 
   let content;
 
-  if (loading) content = <span><CircularProgress/></span>;
+  if (loading) content = <span className="spinner"><CircularProgress/></span>;
   if (error) content = <p>ERROR</p>;
   if (data) content = data.games.map((item) => <MediaCard key={item.id} title={item.title} image={item.details.image} description={item.details.description}/>) 
 

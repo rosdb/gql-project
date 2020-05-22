@@ -16,33 +16,46 @@ const useStyles = makeStyles({
   media: {
     height: 140,
   },
+  title: {
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+  },
   text: {
     textOverflow: "ellipsis",
-		overflow: "hidden", 
-  	whiteSpace: "nowrap",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
   },
 });
 
 export default function MediaCard({ title, image, description }) {
   const classes = useStyles();
+  const noHtmlTag = new RegExp(/(<([^>]+)>)/ig);
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image={image} title={title} />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography
+            className={classes.title}
+            gutterBottom
+            variant="h5"
+            component="h2"
+          >
             {title}
           </Typography>
-          <Typography className={classes.text} variant="body2" color="textSecondary" component="p">
-            {description}
+          <Typography
+            className={classes.text}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {description.replace(noHtmlTag, '')}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
         <Button size="small" color="primary">
           Learn More
         </Button>
