@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard({ title, image, description }) {
+export default function MediaCard({ title, image, description, onClick }) {
   const classes = useStyles();
   const noHtmlTag = new RegExp(/(<([^>]+)>)/ig);
 
@@ -56,7 +56,7 @@ export default function MediaCard({ title, image, description }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={onClick}>
           Learn More
         </Button>
       </CardActions>
