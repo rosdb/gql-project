@@ -35,7 +35,7 @@ export default function MediaCard({ title, image, description, onClick }) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={image} title={title} />
+        <CardMedia className={classes.media} image={image} title={title} onClick={onClick}/>
         <CardContent>
           <Typography
             className={classes.title}
