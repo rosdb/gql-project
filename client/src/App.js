@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
 import MediaCard from "./card";
 import Game from "./game";
-import "./App.css";
+import "./App.scss";
 
 const GET_GAMES = gql`
   query {
