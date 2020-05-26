@@ -24,20 +24,36 @@ export const GET_GAME_DETAILS = gql`
 `;
 
 const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    backgroundSize: "100%",
+  },
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    overflow: "auto"
+    overflow: "auto",
+    backdropFilter: "blur(10px)"
   },
   paper: {
+    display: "flex",
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-    width: "40%",
+    border: "none",
+    borderRadius: "8px",
+    overflow: "hidden",
+    boxShadow: "0 15px 20px -15px #2C3E50",
+    width: "70%",
   },
-  buttom: {
+  hero: {
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+    textIndent: "-9999px",
+    flex: "0 0 30%",
+  },
+  content: {
+    padding: "24px 32px",
+  },
+  bottom: {
     display: "flex",
     justifyContent: "space-between",
   },
@@ -61,38 +77,45 @@ function GameModal({ gameId, openModal, closeModal }) {
   if (data)
     content = (
       <Fragment>
-        <img
-          alt={data.gameDetails.title}
-          src={data.gameDetails.image}
-          width="100%"
-        />
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
+        <Backdrop
+          style={{ backgroundImage: `url(${data.gameDetails.image})` }}
+          className={classes.backdrop}
           open={openModal}
-          onClose={closeModal}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
+          onClick={closeModal}
         >
-          <Fade in={openModal}>
-            <div className={classes.paper}>
-              <h2 id="transition-modal-title">{data.gameDetails.title}</h2>
-              <p id="transition-modal-description">
-                {data.gameDetails.description.replace(noHtmlTag, "")}
-              </p>
-              <div className={classes.buttom}>
-                <p>
-                  RATING: <b>{data.gameDetails.rating}</b>
-                </p>
-                <Button color="primary" href={data.gameDetails.website}>Go to Website</Button>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={openModal}
+            closeAfterTransition
+          >
+            <Fade in={openModal}>
+              <div className={classes.paper}>
+                <div
+                  className={classes.hero}
+                  style={{ backgroundImage: `url(${data.gameDetails.image})` }}
+                >
+                  Image
+                </div>
+                <div className={classes.content}>
+                  <h2 id="transition-modal-title">{data.gameDetails.title}</h2>
+                  <p id="transition-modal-description">
+                    {data.gameDetails.description.replace(noHtmlTag, "")}
+                  </p>
+                  <div className={classes.bottom}>
+                    <p>
+                      RATING: <b>{data.gameDetails.rating}</b>
+                    </p>
+                    <Button color="primary" href={data.gameDetails.website}>
+                      Go to Website
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </Fade>
-        </Modal>
+            </Fade>
+          </Modal>
+        </Backdrop>
       </Fragment>
     );
 
