@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
 import { CircularProgress } from "@material-ui/core";
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 import MediaCard from "./card";
-import Game from "./game";
+import GameModal from "./gameModal";
 import "./App.scss";
 
 const GET_GAMES = gql`
@@ -48,7 +48,7 @@ function App() {
   if (error) content = <p>ERROR</p>;
   if (data)
     content = id ? (
-      <Game gameId={id} openModal={open} closeModal={() => handleClose()} />
+      <GameModal gameId={id} openModal={open} closeModal={() => handleClose()} />
     ) : (
       data.games.map((item) => (
         <MediaCard
