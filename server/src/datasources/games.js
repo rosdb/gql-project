@@ -24,8 +24,9 @@ class GameAPI extends RESTDataSource {
     };
   }
 
+  
   async getGames(page) {
-    const response = await this.get(`games?page=${page}`);
+    const response = await this.get(`games?dates=2010-01-01%2C2019-12-31&page=${page}&page_size=40&filter=true&comments=true`);
     return response.results.map((game) => this.gameReducer(game));
 	}
 	
