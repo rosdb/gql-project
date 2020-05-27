@@ -72,7 +72,11 @@ function GameModal({ gameId, openModal, closeModal }) {
   console.log("error", error);
   console.log("dettagli gioco cliccato", data);
 
-  if (loading) content = <CircularProgress />;
+  if (loading) content = (
+    <span className="spinner">
+      <CircularProgress />
+    </span>
+  );
   if (error) content = <p>ERROR: {error.message}</p>;
   if (data)
     content = (
