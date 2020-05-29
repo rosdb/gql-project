@@ -61,7 +61,7 @@ function App() {
       </Switch>
     ) : (
       data.games.map((item) => (
-        <Link style={{ textDecoration: 'none' }} to={item.title.toLowerCase().split(" ").join("-")}>
+        <Link key={item.id} style={{ textDecoration: 'none' }} to={item.title.toLowerCase().split(" ").join("-")}>
           <MediaCard
             key={item.id}
             title={item.title}
