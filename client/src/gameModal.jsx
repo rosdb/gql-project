@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useHistory } from "react-router-dom";
 import {
   CircularProgress,
   Button,
@@ -64,6 +65,8 @@ function GameModal({ gameId, openModal, closeModal }) {
     variables: { gameId },
   });
 
+  let history = useHistory();
+
   const classes = useStyles();
 
   let content;
@@ -92,6 +95,7 @@ function GameModal({ gameId, openModal, closeModal }) {
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={openModal}
+            onClose={() => history.push('/')}
             closeAfterTransition
           >
             <Fade in={openModal}>
