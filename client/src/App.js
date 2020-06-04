@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Switch, Route, Link } from "react-router-dom";
 import { CircularProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
@@ -27,16 +27,10 @@ const GET_GAMES = gql`
 function App() {
   const { data, loading, error } = useQuery(GET_GAMES);
 
-  const [open, setOpen] = React.useState(false);
-  const [id, setId] = useState();
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const [close, setClose] = React.useState(true);
 
   const handleClose = () => {
-    setId(undefined);
-    setOpen(false);
+    setClose(true);
   };
 
   let content;
@@ -49,43 +43,30 @@ function App() {
     );
   if (error) content = <p>ERROR</p>;
   if (data)
-    content = id ? (
-      <Switch>
-        <Route path="/:title">
-          <GameModal
-            gameId={id}
-            openModal={open}
-            closeModal={() => handleClose()}
-          />
-        </Route>
-      </Switch>
-    ) : (
-      data.games.map((item) => (
-        <Link key={item.id} style={{ textDecoration: 'none' }} to={item.title.toLowerCase().split(" ").join("-")}>
-          <MediaCard
-            key={item.id}
-            title={item.title}
-            image={item.details.image}
-            description={item.details.description}
-            onClick={() => {
-              handleOpen();
-              setId(item.id);
-            }}
-          />
-        </Link>
-      ))
-    );
-
-  console.log("lista", data);
-  console.log("gioco cliccato", id);
+    content = data.games.map((item) => (
+      <Link key={item.id} style={{ textDecoration: "none" }} to={item.id}>
+        <MediaCard
+          key={item.id}
+          title={item.title}
+          image={item.details.image}
+          description={item.details.description}
+        />
+      </Link>
+    ));
 
   return (
     <div className="App">
-      <Router>
-        <Route path="/">
+      <Switch>
+        <Route exact path="/">
           <MediaCards>{content || <p>Not found</p>}</MediaCards>
         </Route>
-      </Router>
+        <Route
+          path="/:id"
+          children={
+            <GameModal openModal={close} closeModal={() => handleClose()} />
+          }
+        />
+      </Switch>
     </div>
   );
 }

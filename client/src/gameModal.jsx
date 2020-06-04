@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import {
   CircularProgress,
   Button,
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     overflow: "auto",
-    backdropFilter: "blur(10px)"
+    backdropFilter: "blur(10px)",
   },
   paper: {
     display: "flex",
@@ -60,7 +60,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function GameModal({ gameId, openModal, closeModal }) {
+function GameModal({ openModal, closeModal }) {
+  const match = useRouteMatch('/:id');
+  const { id: gameId } = match.params; 
+
   const { data, loading, error } = useQuery(GET_GAME_DETAILS, {
     variables: { gameId },
   });
@@ -71,15 +74,12 @@ function GameModal({ gameId, openModal, closeModal }) {
 
   let content;
 
-  console.log("loading", loading);
-  console.log("error", error);
-  console.log("dettagli gioco cliccato", data);
-
-  if (loading) content = (
-    <span className="spinner">
-      <CircularProgress />
-    </span>
-  );
+  if (loading)
+    content = (
+      <span className="spinner">
+        <CircularProgress />
+      </span>
+    );
   if (error) content = <p>ERROR: {error.message}</p>;
   if (data)
     content = (
@@ -95,7 +95,7 @@ function GameModal({ gameId, openModal, closeModal }) {
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={openModal}
-            onClose={() => history.push('/')}
+            onClose={() => history.push("/")}
             closeAfterTransition
           >
             <Fade in={openModal}>
