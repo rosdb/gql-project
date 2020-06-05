@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GameModal({ openModal, closeModal }) {
-  const match = useRouteMatch('/:id');
+  const match = useRouteMatch('/game/:id');
   const { id: gameId } = match.params; 
 
   const { data, loading, error } = useQuery(GET_GAME_DETAILS, {

@@ -30,8 +30,8 @@ export default function MediaCard({ title, image, description, onClick }) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={image} title={title}/>
-        <CardContent>
+        <CardMedia className={classes.media} image={image} title={title} onClick={onClick}/>
+        <CardContent onClick={onClick}>
           <Typography
             className={classes.title}
             gutterBottom
@@ -51,7 +51,7 @@ export default function MediaCard({ title, image, description, onClick }) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={onClick}>
           Learn More
         </Button>
       </CardActions>
